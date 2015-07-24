@@ -22,3 +22,5 @@ There will be multiple **front ends**:
 - an Android app
 
 those front ends visualize user data and allow to easily enter new exercises.
+
+The website will use bootsrap for the layout, knockout.js for data binding. The site requests user data as json files from the back end.
