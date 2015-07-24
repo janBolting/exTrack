@@ -20,4 +20,4 @@ There will be multiple frontends:
 
 - a website
 - an Android app
-- 
+
