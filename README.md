@@ -23,4 +23,4 @@ There will be multiple **front ends**:
 
 those front ends visualize user data and allow to easily enter new exercises.
 
-The website will use bootsrap for the layout, knockout.js for data binding. The site requests user data as json files from the back end.
+The website will use bootstrap for the layout, knockout.js for data binding. The site requests user data as json files from the back end.
