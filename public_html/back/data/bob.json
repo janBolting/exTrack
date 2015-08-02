@@ -1,0 +1,15 @@
+{
+    "name": "Bob",
+    "events": [
+        {
+            "time": "now",
+            "type": "pullup",
+            "quantity": "25"
+        },
+        {
+            "time": "now+2min",
+            "type": "pullup",
+            "quantity": "20"
+        }
+    ]
+}
