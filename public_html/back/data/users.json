@@ -1,0 +1,13 @@
+{
+    "users": [
+        {
+            "name": "Jan",
+            "nExercises": "130"
+        },
+        {
+            "name": "Bob",
+            "nExercises": "1001"
+        }
+    ]
+
+}
