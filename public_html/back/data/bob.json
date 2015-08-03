@@ -10,6 +10,11 @@
             "time": "now+2min",
             "type": "pullup",
             "quantity": "20"
+        },
+        {
+            "time": "now+4min",
+            "type": "push up",
+            "quantity": "200"
         }
     ]
 }

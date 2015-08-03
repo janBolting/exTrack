@@ -51,17 +51,27 @@
                     <div class="col-lg-12">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
-                                <strong>Your exercises:</strong>
+                                <strong>Your exercises, </strong><strong data-bind="text: userpage.user.name"></strong>:
                             </div>
                             <div class="panel-body" id="userpage">
-                                <p><strong data-bind="text: userpage.user.name"></strong>:</p>
-
+                                <ul data-bind="foreach: userpage.user.structuredEvents, visible: userpage.user.structuredEvents().length > 0">
+                                    <li>
+                                        <div data-bind="text: type"> </div>
+                                        <ul data-bind="foreach: events">
+                                            <li>
+                                                <input data-bind="value: time" />
+                                                <span data-bind="text: quantity"> </span>                                                
+                                            </li> 
+                                        </ul>        
+                                    </li> 
+                                </ul>
                             </div>
+                            <button onclick="upload()">Upload to server</button>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div id="subpage_signin" data-bind="visible: mainpagelayout.signinPageVisible">
                 <div class="row">
                     <div class="col-lg-12">
