@@ -26,16 +26,35 @@ function UserPageViewModel() {
     self.user = ko.mapping.fromJS(UserPageViewModel_json);
     // console.log(self.user.events());
 
-    // Iterate over events, extract exercise types, create array of computed 
-    // observables for each exercise type to be able to display them separately.
-    var events = self.user.events();
+    // Find all exercise types:
     var types = [];
-    events.forEach(function (s) {
-        var alreadythere = $.inArray(s.type(), types) > -1;
-        if (!alreadythere) {
-            types.push(s.type());
-        }
-    });
+    self.user.exerciseTypes = ko.computed(function () {
+        // Iterate over events, extract exercise types, create array of computed 
+        // observables for each exercise type to be able to display them separately.
+        var events = self.user.events();
+        events.forEach(function (s) {
+            var alreadythere = $.inArray(s.type(), types) > -1;
+            if (!alreadythere) {
+                types.push(s.type());
+            }
+        });
+        return types.sort();
+    }, self);
+    self.user.chosenExerciseType = ko.observableArray([types[0]]);
+
+    // Find all exercise quantities:
+    var quantities = [];
+    self.user.quantities = ko.computed(function () {
+        var events = self.user.events();
+        events.forEach(function (s) {
+            var alreadythere = $.inArray(s.quantity(), quantities) > -1;
+            if (!alreadythere) {
+                quantities.push(s.quantity());
+            }
+        });
+        return quantities.sort(sortNumber);
+    }, self);
+    self.user.chosenQuantity = ko.observableArray([quantities[0]]);
 
     self.user.structuredEvents = ko.computed(function () {
         // Build array of objects, one object per exercise type. The object 
@@ -44,9 +63,9 @@ function UserPageViewModel() {
         types.forEach(function (item, i) {
             var type = types[i];
             var o = {
-            'type': type,
-            'events': []
-                    };
+                'type': type,
+                'events': []
+            };
             // Extract events that have this exercise type:
             o.events = ko.utils.arrayFilter(self.user.events(), function (item, i) {
                 return stringStartsWith(item.type().toLowerCase(), type);
@@ -57,12 +76,21 @@ function UserPageViewModel() {
         return a;
     }, self);
 
-    /*
-     self.user.structuredEvents = ko.computed(function() {
-     return self.user.events();
-     }, self);
-     */
-    // console.log(self);
+    self.addExercise = function () {
+        var event = {
+            'time': ko.observable(Date()),
+            'type': ko.observable(self.user.chosenExerciseType()[0]),
+            'quantity': ko.observable(self.user.chosenQuantity()[0])
+        }
+        self.user.events.push(event);
+    }
+
+// Code related to creating new exercise definitions:
+    self.newExerciseName = ko.observable("New amazing exercise");
+    self.addExerciseDefinition = function () {
+        dbg(self.newExerciseName());
+    }
+
 }
 
 // View model for page layout:
@@ -80,16 +108,22 @@ function stringStartsWith(string, startsWith) {
     return string.substring(0, startsWith.length) === startsWith;
 }
 
-function dbg(what){
+function dbg(what) {
     console.log(what);
 }
 
-function upload(){
-    var unmapped = ko.mapping.toJSON(viewmodel.userpage);
-    console.log(unmapped);
-     $.ajax("/userdata/"+user, {
-            data: unmapped,
-            type: "post", contentType: "application/json",
-            success: function(result) { alert(result) }
-        });
+function upload() {
+    var unmapped = ko.mapping.toJSON(viewmodel.userpage.user);
+    //console.log(unmapped);
+    $.ajax("/userdata/" + user, {
+        data: unmapped,
+        type: "post", contentType: "application/json",
+        success: function (result) {
+            //alert(result);
+        }
+    });
+}
+
+function sortNumber(a, b) {
+    return a - b;
 }

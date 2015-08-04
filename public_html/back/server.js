@@ -28,14 +28,14 @@ app.get("/userdata/*", function (req, res) {
 
 app.post("/userdata/*", function (req, res) {
     var user = getURLSegment(req.url, 2);
-    console.log(req.body);
-    res.end(JSON.stringify(req.body));
-
-    fs.writeFile("./data/" + user + "_fromserver.json", JSON.stringify(req.body), function (err) {
+    var jsonstring = JSON.stringify(req.body,  null, "\t");
+    res.end(jsonstring);
+    var fname = "./data/" + user + ".json";
+    fs.writeFile(fname, jsonstring, function (err) {
         if (err) {
             return console.log(err);
         }
-        console.log("The file was saved!");
+        console.log("File sreceived from client was saved as " + fname);
     });
 });
 
