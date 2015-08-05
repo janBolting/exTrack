@@ -1,15 +1,45 @@
 {
-    "name": "Bob",
-    "events": [
-        {
-            "time": "now",
-            "type": "pullup",
-            "quantity": "25"
-        },
-        {
-            "time": "now+2min",
-            "type": "pullup",
-            "quantity": "20"
-        }
-    ]
+	"name": "bob",
+	"events": [
+		{
+			"time": "Tue Aug 04 2015 21:18:02 GMT+0200",
+			"type": "pullup",
+			"quantity": "20"
+		},
+		{
+			"time": "Tue Aug 04 2015 21:18:05 GMT+0200",
+			"type": "pullup",
+			"quantity": "250"
+		},
+		{
+			"time": "Tue Aug 04 2015 21:18:06 GMT+0200",
+			"type": "pullup",
+			"quantity": "250"
+		},
+		{
+			"time": "Tue Aug 04 2015 21:18:15 GMT+0200",
+			"type": "push up",
+			"quantity": "20"
+		},
+		{
+			"time": "Tue Aug 04 2015 21:18:16 GMT+0200",
+			"type": "push up",
+			"quantity": "20"
+		},
+		{
+			"time": "Tue Aug 04 2015 21:19:15 GMT+0200",
+			"type": "pullup",
+			"quantity": "20"
+		},
+		{
+			"time": "Tue Aug 04 2015 21:29:53 GMT+0200",
+			"type": "pullup",
+			"quantity": "20"
+		},
+		{
+			"time": "Tue Aug 04 2015 21:29:54 GMT+0200",
+			"type": "pullup",
+			"quantity": "20"
+		}
+	]
 }

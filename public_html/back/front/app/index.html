@@ -14,6 +14,7 @@
 
         <!-- Custom styles for this template -->
         <link href="css/landing.css" rel="stylesheet">
+        <link href="css/tables.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -51,17 +52,38 @@
                     <div class="col-lg-12">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
-                                <strong>Your exercises:</strong>
+                                <strong>Your exercises, </strong><strong data-bind="text: userpage.user.name"></strong>:
                             </div>
                             <div class="panel-body" id="userpage">
-                                <p><strong data-bind="text: userpage.user"></strong>:</p>
+
+                                <ul data-bind="foreach: userpage.user.structuredEvents">
+                                    <li>
+                                        <strong data-bind="text: type"> </strong>
+                                        <table class="table table-hover">
+                                            <tbody data-bind="foreach: events">
+                                                <tr>
+                                                    <td data-bind="text: quantity"> </td>
+                                                    <td data-bind="text: time"> </td>
+                                                </tr>    
+                                            </tbody>
+                                        </table>
+                                    </li>
+                                </ul>
 
                             </div>
+                            <select data-bind="options: userpage.user.exerciseTypes, selectedOptions: userpage.user.chosenExerciseType"></select>
+                            <select data-bind="options: userpage.user.quantities, selectedOptions: userpage.user.chosenQuantity"></select>
+                            <button data-bind="click: userpage.addExercise">Done!</button>
+                            <br>
+                            New exercise: <input data-bind="textInput: userpage.user.newExerciseName" />                            
+                            <button data-bind="click: userpage.addExerciseDefinition">Create new exercise</button>
+                            <br>
+                            <button data-bind="click: upload()">Upload to server</button>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div id="subpage_signin" data-bind="visible: mainpagelayout.signinPageVisible">
                 <div class="row">
                     <div class="col-lg-12">
