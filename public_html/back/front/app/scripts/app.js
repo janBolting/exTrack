@@ -24,23 +24,21 @@ function UserPageViewModel() {
     var self = this;
     // Create and populate the view model:
     self.user = ko.mapping.fromJS(UserPageViewModel_json);
-    // console.log(self.user.events());
-
-    // Find all exercise types:
-    var types = [];
-    self.user.exerciseTypes = ko.computed(function () {
-        // Iterate over events, extract exercise types, create array of computed 
-        // observables for each exercise type to be able to display them separately.
-        var events = self.user.events();
-        events.forEach(function (s) {
-            var alreadythere = $.inArray(s.type(), types) > -1;
-            if (!alreadythere) {
-                types.push(s.type());
-            }
-        });
-        return types.sort();
+    
+    // Get array of available exercise types as strings:
+    self.user.exerciseTypes_names = ko.computed(function () {
+    var dataArray = new Array;
+    self.user.exerciseTypes().forEach(function(item){
+        dataArray.push(item.name());
+    }
+            
+                )
+return dataArray;
     }, self);
-    self.user.chosenExerciseType = ko.observableArray([types[0]]);
+ 
+
+    // console.log(self.user.events());
+    self.user.chosenExerciseType = ko.observableArray([self.user.exerciseTypes()[0]]);
 
     // Find all exercise quantities:
     var quantities = [];
@@ -57,18 +55,20 @@ function UserPageViewModel() {
     self.user.chosenQuantity = ko.observableArray([quantities[0]]);
 
     self.user.structuredEvents = ko.computed(function () {
-        // Build array of objects, one object per exercise type. The object 
+        // Build array of objects, one object per exercise type. Each object 
         // holds the type and the corresponding events.
         a = [];
-        types.forEach(function (item, i) {
-            var type = types[i];
+        // Iterate over available exercise types:
+        // dbg(self.user.exerciseTypes()[0].name());
+        self.user.exerciseTypes().forEach(function (item, i) {
+            var exname = self.user.exerciseTypes()[i].name();
             var o = {
-                'type': type,
+                'type': exname,
                 'events': []
             };
             // Extract events that have this exercise type:
             o.events = ko.utils.arrayFilter(self.user.events(), function (item, i) {
-                return stringStartsWith(item.type().toLowerCase(), type);
+                return stringStartsWith(item.type().toLowerCase(), exname);
             });
             a.push(o);
         })
@@ -82,13 +82,16 @@ function UserPageViewModel() {
             'type': ko.observable(self.user.chosenExerciseType()[0]),
             'quantity': ko.observable(self.user.chosenQuantity()[0])
         }
+        dbg(self.user.events());
         self.user.events.push(event);
     }
 
 // Code related to creating new exercise definitions:
     self.newExerciseName = ko.observable("New amazing exercise");
     self.addExerciseDefinition = function () {
-        dbg(self.newExerciseName());
+        // Here is how new exercises are handled for now: For each new exercise
+        // an empty event is created, i.e. an event with quantity zero. Events 
+        // with zero quantity are not displayed in the exercise list
     }
 
 }
@@ -119,7 +122,7 @@ function upload() {
         data: unmapped,
         type: "post", contentType: "application/json",
         success: function (result) {
-            //alert(result);
+            // alert(result);
         }
     });
 }

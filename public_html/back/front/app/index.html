@@ -71,11 +71,12 @@
                                 </ul>
 
                             </div>
-                            <select data-bind="options: userpage.user.exerciseTypes, selectedOptions: userpage.user.chosenExerciseType"></select>
+                            <select data-bind="options: userpage.user.exerciseTypes_names, selectedOptions: userpage.user.chosenExerciseType"></select>
                             <select data-bind="options: userpage.user.quantities, selectedOptions: userpage.user.chosenQuantity"></select>
                             <button data-bind="click: userpage.addExercise">Done!</button>
                             <br>
-                            New exercise: <input data-bind="textInput: userpage.user.newExerciseName" />                            
+                            New exercise: <input data-bind="textInput: userpage.newExerciseName" />   
+                            <span data-bind="text: userpage.newExerciseName"></span>   wtf                         
                             <button data-bind="click: userpage.addExerciseDefinition">Create new exercise</button>
                             <br>
                             <button data-bind="click: upload()">Upload to server</button>
