@@ -1,4 +1,4 @@
-var isauthenticated = true;
+var isauthenticated = false;
 var user = "bob";
 var UserPageViewModel_json;
 var viewmodel;
@@ -139,8 +139,8 @@ function UserPageViewModel() {
 function MainPageViewModel() {
     var self = this;
     // Data model:
-    self.signinPageVisible = ko.observable(false);
-    self.userPageVisible = ko.observable(true);
+    self.signinPageVisible = ko.observable(!isauthenticated);
+    self.userPageVisible = ko.observable(isauthenticated);
 }
 
 function stringCompare(s1, s2) {

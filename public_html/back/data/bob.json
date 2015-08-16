@@ -15,6 +15,26 @@
 			"time": "Thu Aug 06 2015 19:28:18 GMT+0200",
 			"type": "New amazing exercise",
 			"quantity": "200"
+		},
+		{
+			"time": "Sat Aug 15 2015 12:02:15 GMT+0200",
+			"type": "New amazing exefeffrcise",
+			"quantity": 19
+		},
+		{
+			"time": "Sat Aug 15 2015 12:02:20 GMT+0200",
+			"type": "New amazing exefeffrcise",
+			"quantity": 3294324
+		},
+		{
+			"time": "Sat Aug 15 2015 14:09:15 GMT+0200",
+			"type": "push up",
+			"quantity": 19
+		},
+		{
+			"time": "Sat Aug 15 2015 14:09:17 GMT+0200",
+			"type": "push up",
+			"quantity": 19
 		}
 	],
 	"exerciseTypes": [
@@ -29,6 +49,9 @@
 		},
 		{
 			"name": "nobrainer handstand"
+		},
+		{
+			"name": "New amazing exefeffrcise"
 		}
 	]
 }
